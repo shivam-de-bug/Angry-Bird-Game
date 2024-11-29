@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 
-public class GameScreen1 extends BaseGameScreen implements Screen  {
+public class GameScreen2 implements Screen {
     public AngryBirdsGame game;
     public  Array<Bird> birds;
     public Array<BuildingBlock> blocks;
@@ -38,7 +38,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
     public int score;
 
     private GameState gameState;
-   public int remainingBirds;
+    public int remainingBirds;
     private boolean levelComplete;
     private boolean levelFailed;
 
@@ -48,9 +48,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
     private String todo;
 
 
-    public GameScreen1(final AngryBirdsGame game,String todo){
-          super(game);
-
+    public GameScreen2(final AngryBirdsGame game,String todo) {
         this.game = game;
         this.birds = new Array<>();
         this.blocks = new Array<BuildingBlock>();
@@ -71,7 +69,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
         if (todo.equals("LOAD")) {
             GameStore gameState = GameStateManager.getInstance().getCurrentGameState();
             if (gameState != null && gameState.getCurrentLevelState() != null) {
-                gameState.getCurrentLevelState().restoreGameState(this);
+                gameState.getCurrentLevelState().restoreGameState2(this);
 
 
                 System.out.println("Game Loaded Successfully:");
@@ -82,31 +80,40 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
         }
     }
 
-    public void initializeLevel() {
+    private void initializeLevel() {
 
 
         birds.add(new RedBird(game.redbirdTexture, SLINGSHOT_X, SLINGSHOT_Y-150+20, 0.25f));
-        birds.add(new YellowBird(game.yellowbirdTexture, SLINGSHOT_X - 50, SLINGSHOT_Y-150+20, 0.16f));
+        birds.add(new YellowBird(game.yellowbirdTexture, SLINGSHOT_X - 50, SLINGSHOT_Y-150+30, 0.16f));
         birds.add(new BlueBird(game.bluebirdTexture, SLINGSHOT_X - 100, SLINGSHOT_Y-150+20, 0.25f,false));
-        birds.add(new RedBird(game.redbirdTexture, SLINGSHOT_X-170, SLINGSHOT_Y-150+20, 0.25f));
-
+        birds.add(new BlueBird(game.bluebirdTexture, SLINGSHOT_X - 100, SLINGSHOT_Y-150+20, 0.25f,false));
+        birds.add(new BlueBird(game.bluebirdTexture, SLINGSHOT_X - 100, SLINGSHOT_Y-150+20, 0.25f,false));
 
         currentBird = birds.first();
         remainingBirds = birds.size;
 
         //Blocks
-        blocks.add(new WoodBlock(game.woodvertexture, 840+12, 230, 0.5f, true,"brokewoodver.jpeg",2));  // Vertical block 1
-        blocks.add(new WoodBlock(game.woodvertexture, 970, 230, 0.5f, true,"brokewoodver.jpeg",2));  // Vertical block 2
-        blocks.add(new WoodBlock(game.woodvertexture, 1100, 230, 0.5f, true,"brokewoodver.jpeg",2));  // Vertical block 3
+        blocks.add(new GlassBlock(game.glassvertexture, 800, 400, 0.5f, true,"brokeglassver.jpeg",4));
+        blocks.add(new GlassBlock(game.glassvertexture, 852, 230, 0.5f, true,"brokeglassver.jpeg",4));  // Vertical block 1
+        blocks.add(new GlassBlock(game.glassvertexture, 980, 230, 0.5f, true,"brokeglassver.jpeg",4));  // Vertical block 2
+//        blocks.add(new WoodBlock(game.woodvertexture, 1100, 230, 0.5f, true,"brokewoodver.jpeg",2));  // Vertical block 3
+        blocks.add(new GlassBlock(game.glassvertexture,950,400,0.5f,true,"brokeglassver.jpeg",4));
+        blocks.add(new GlassBlock(game.glassvertexture,1070,400,0.5f,true,"brokeglassver.jpeg",4));
 
-        blocks.add(new WoodBlock(game.woodblockTexture, 830-18, 295, 0.6f, false,"brokewood.jpeg",1));
-        blocks.add(new WoodBlock(game.woodblockTexture, 960-18, 295, 0.6f, false,"brokewood.jpeg",1));
-        blocks.add(new WoodBlock(game.woodblockTexture, 1090-18, 295, 0.6f, false,"brokewood.jpeg",1));
 
+//        blocks.add(new WoodBlock(game.woodblockTexture, 830-18, 295, 0.6f, false,"brokewood.jpeg",1));
+        blocks.add(new StoneBlock(game.stonetexture,804,295,0.6f,false,"brokesteel.jpeg",5));
+        blocks.add(new StoneBlock(game.stonetexture,900,180,0.3f,false,"brokesteel.jpeg",5));
+        blocks.add(new GlassBlock(game.glasstexture, 952, 295, 0.7f, false,"brokeglass.jpeg",3));
+        blocks.add(new GlassBlock(game.glasstexture, 952, 420, 0.7f, false,"brokeglass.jpeg",3));
+        blocks.add(new GlassBlock(game.glasstexture, 1100, 200, 0.6f, false,"brokeglass.jpeg",3));
         //pigs
-        pigs.add(new SmallPig(game.pigTexture, 830, 300));
-        pigs.add(new MediumPig(game.pigTexture, 960, 300));
-        pigs.add(new LargePig(game.pigTexture, 1090, 300));
+        pigs.add(new SmallPig(game.pigTexture, 800, 300));
+        pigs.add(new SmallPig(game.pigTexture, 850, 300));
+        pigs.add(new SmallPig(game.pigTexture,895,190));
+        pigs.add(new MediumPig(game.pigTexture, 975, 300));
+        pigs.add(new LargePig(game.pigTexture, 1110, 200));
+
 
         //buttons
         pauseButtonBounds = new Rectangle(1175, 605, 100, 100);
@@ -115,9 +122,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
     }
 
 
-
-
-    private static  String SAVE_FILE = "level_1_save.json";
+    private static  String SAVE_FILE = "level_2_save.json";
 
 
 
@@ -125,15 +130,15 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
         try {
             GameStore gameProgress = new GameStore();
             GameStore.SerializableLevelState levelState = new GameStore.SerializableLevelState();
-            levelState.captureGameState(this);
+            levelState.captureGameState2(this);
 
-            gameProgress.setCurrentLevelNumber(1); // Hardcoded for now
+            gameProgress.setCurrentLevelNumber(2); // Hardcoded for now
 
             gameProgress.setCurrentLevelState(levelState);
             gameProgress.setTotalScore(score);
             gameProgress.saveGame(SAVE_FILE);
 
-            System.out.println("Game saved successfully! ");
+            System.out.println("Game saved successfully! "+"level2");
         } catch (Exception e) {
             System.err.println("Error saving game state: " + e.getMessage());
             e.printStackTrace();
@@ -151,7 +156,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
                 pigs.clear();
                 GameStore.SerializableLevelState levelState = loadedProgress.getCurrentLevelState();
                 if (levelState != null) {
-                    levelState.restoreGameState(this);
+                    levelState.restoreGameState2(this);
                 }
                 score = loadedProgress.getTotalScore();
                 gameState = GameState.READY;
@@ -163,7 +168,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
                     currentBird = birds.get(birds.indexOf(currentBird, true));
                 }
 
-                System.out.println("Game loaded successfully!"+ SAVE_FILE);
+                System.out.println("Game loaded successfully!"+ "level2");
             } else {
                 System.out.println("No saved game found.");
                 initializeLevel();
@@ -175,9 +180,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
         }
     }
 
-
-
-    GameScreen1 screenInstance = this;
+    GameScreen2 screenInstance = this;
 
 
     private void findinput() {
@@ -186,29 +189,29 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
 
-        @Override
-        public boolean keyDown(int keycode) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-                saveGameState();
-                return true;
-            }
+            @Override
+            public boolean keyDown(int keycode) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+                    saveGameState();
+                    return true;
+                }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
-                loadGameState();
-                return true;
-            }
+                if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+                    loadGameState();
+                    return true;
+                }
 
-            return false;
-        }
+                return false;
+            }
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 Vector2 touchPos = new Vector2(screenX, Gdx.graphics.getHeight() - screenY);
 
-             //   saveGameState();
+                //   saveGameState();
                 if (pauseButtonBounds.contains(touchPos.x, touchPos.y)) {
                     saveGameState();
-                    GameStateManager.getInstance().saveGameState(1, screenInstance);  // Save current state
-                    game.setScreen(new PauseScreen(game, 1));  // Pass current level number
+                    GameStateManager.getInstance().saveGameState(2, screenInstance);  // Save current state
+                    game.setScreen(new PauseScreen(game, 2));  // Pass current level number
 
                 }
                 if (backButtonBounds.contains(touchPos.x, touchPos.y)) {
@@ -218,7 +221,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
                     return true;
                 }
                 if (restartButtonBounds.contains(touchPos.x, touchPos.y)) {
-                    game.setScreen(new GameScreen1(game,"NOTHING TO DO"));
+                    game.setScreen(new GameScreen2(game,"NOTHING TO DO"));
                     return true;
                 }
 
@@ -228,6 +231,9 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
                     birdReady = true;
                     return true;
                 }
+
+
+
                 if (gameState == GameState.READY && birdReady && isTouchingBird(touchPos)) {
 
                     isDragging = true;
@@ -235,7 +241,6 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
                     showTrajectory = true;
                     return true;
                 }
-
                 if (gameState == GameState.READY && currentBird.launched &&
                     (currentBird instanceof YellowBird || currentBird instanceof BlueBird)) {
                     if(currentBird instanceof YellowBird){
@@ -261,9 +266,6 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
 
                     return true;
                 }
-
-
-
                 return false;
             }
 
@@ -298,7 +300,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
                 if (isDragging) {
                     Vector2 releasePos = new Vector2(screenX, Gdx.graphics.getHeight() - screenY);
-                       Vector2 launchpos = slingshot.cpy().sub(releasePos);
+                    Vector2 launchpos = slingshot.cpy().sub(releasePos);
 
 
                     float dragDistance = launchpos.len();
@@ -339,7 +341,7 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
 
 
     private void blockdestruction(BuildingBlock destroyedBlock) {
-      //  saveGameState();
+        //  saveGameState();
         Array<BuildingBlock> tempBlocks = new Array<>(blocks);
 
         for (BuildingBlock block : tempBlocks) {
@@ -357,19 +359,19 @@ public class GameScreen1 extends BaseGameScreen implements Screen  {
         }
     }
 
-public void checkGameState() {
-    Vector2 pos = currentBird.getPosition();
+    public void checkGameState() {
+        Vector2 pos = currentBird.getPosition();
 
-    if (pigs.size == 0) {
-        gameState = GameState.LEVEL_COMPLETE;
+        if (pigs.size == 0) {
+            gameState = GameState.LEVEL_COMPLETE;
+        }
+
+        else if (remainingBirds == 0 && !birdLaunched && gameState != GameState.BIRD_FLYING&& ( pos.x < 0 || pos.x > Gdx.graphics.getWidth() ||
+            pos.y < 0 || pos.y > Gdx.graphics.getHeight())) {
+
+            gameState = GameState.LEVEL_FAILED;
+        }
     }
-
-    else if (remainingBirds == 0 && !birdLaunched && gameState != GameState.BIRD_FLYING&& ( pos.x < 0 || pos.x > Gdx.graphics.getWidth() ||
-        pos.y < 0 || pos.y > Gdx.graphics.getHeight())) {
-
-        gameState = GameState.LEVEL_FAILED;
-    }
-}
 
     private boolean Collisionforbirds(Bird bird, Object target) {
         Rectangle birdBounds = new Rectangle(
@@ -408,7 +410,7 @@ public void checkGameState() {
 
     @Override
     public void show() {
-    findinput();
+        findinput();
     }
 
     @Override
@@ -418,7 +420,7 @@ public void checkGameState() {
         Gdx.gl.glClearColor(0.5f, 0.8f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-       GameScreen1  screenInstance = this;
+        GameScreen2 screenInstance = this;
 //
 // block position
         if (gameState == GameState.READY) {
@@ -435,6 +437,7 @@ public void checkGameState() {
             blocksToRemove.clear();
 
             Array<BuildingBlock> tempBlocks = new Array<>(blocks);
+
             for (BuildingBlock block : tempBlocks) {
                 // block with all blocks and ground level
                 block.update(delta, blocks, groundLevel.y);
@@ -442,19 +445,19 @@ public void checkGameState() {
                 // If a block is destroyed
                 if (block.isDestroyed()) {
                     blocksToRemove.add(block);
-                   blockdestruction(block);
+                    blockdestruction(block);
                 }
             }
 
             blocks.removeAll(blocksToRemove, true);
-       //new position of pigs
+            //new position of pigs
             for (Pig pig : pigs) {
 
                 pig.newposition(delta, blocks, groundLevel.y);
             }
 
 
-          //  Collisions
+            //  Collisions
 
             Array<BuildingBlock> tempoblock = new Array<>(blocks);
             Array<Pig> tempPigs = new Array<>(pigs);
@@ -568,7 +571,7 @@ public void checkGameState() {
 
             game.setScreen(new win(game));
         } else if (gameState == GameState.LEVEL_FAILED && gameState!=GameState.BIRD_FLYING ) {
-                score=0;
+            score=0;
             AngryBirdsGame.music.pause();
             GameStore.clearSaveFile(SAVE_FILE);
 
@@ -577,7 +580,7 @@ public void checkGameState() {
         }
 
         if (isDragging) {
-           // Band;
+            // Band;
             if (currentBird == null) return;
 
             ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -716,6 +719,11 @@ public void checkGameState() {
         gameState = GameState.READY;
     }
 }
+
+
+
+
+
 
 
 

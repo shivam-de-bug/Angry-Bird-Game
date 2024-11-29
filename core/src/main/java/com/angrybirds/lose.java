@@ -19,7 +19,7 @@ public class lose implements Screen {
 
     @Override
     public void render(float del) {
-
+        AngryBirdsGame.lose.play();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -29,7 +29,8 @@ public class lose implements Screen {
         game.batch.end();
 
         t =t+ del;
-        if (t > 2) {
+        if (t > 3) {
+            AngryBirdsGame.lose.pause();
             game.setScreen(new LevelScreen(game));
         }
     }

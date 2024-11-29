@@ -3,12 +3,12 @@ package com.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class HomeScreen implements Screen {
-
     private final AngryBirdsGame game;
     private Rectangle startButtonBounds;
     private Rectangle exitButtonBounds;
@@ -26,6 +26,7 @@ public class HomeScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        AngryBirdsGame.music.play();
 
         Gdx.gl.glClearColor(0, 0.5f, 0.7f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -42,10 +43,13 @@ public class HomeScreen implements Screen {
             Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 
             if (startButtonBounds.contains(touchPos.x, Gdx.graphics.getHeight() - touchPos.y)) {
+                AngryBirdsGame.music.pause();;
                 game.setScreen(new LevelScreen(game));
                 dispose();
             }
             if (exitButtonBounds.contains(touchPos.x, Gdx.graphics.getHeight() - touchPos.y)) {
+                AngryBirdsGame.music.pause();;
+
                 Gdx.app.exit();
             }
         }

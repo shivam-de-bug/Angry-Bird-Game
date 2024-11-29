@@ -7,9 +7,14 @@ public class Loadinggame implements Screen {
 
     private final AngryBirdsGame game;
     private float t = 0;
+    private int level;
+    private static final String SAVE_FILE_PREFIX = "level_";
+    private static final String SAVE_FILE_SUFFIX = "_save.json";
 
-    public Loadinggame(final AngryBirdsGame game) {
+    public Loadinggame(final AngryBirdsGame game,int level) {
         this.game = game;
+        this.level=level;
+       AngryBirdsGame.music.play();
     }
 
     @Override
@@ -18,6 +23,7 @@ public class Loadinggame implements Screen {
 
     @Override
     public void render(float del) {
+
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -28,10 +34,17 @@ public class Loadinggame implements Screen {
 
         t =t+ del;
         if (t > 2) {
-            game.setScreen(new GameScreen1(game));
+            AngryBirdsGame.music.pause();;
+
+//            game.setScreen(new GameScreen1(game,"NOTHING TO DO"));
+            loadLevel();
         }
     }
-
+    private void loadLevel() {
+        String filename = SAVE_FILE_PREFIX + level + SAVE_FILE_SUFFIX;
+        Screen levelScreen = GameStateManager.getInstance().loadGameState(game, level);
+        game.setScreen(levelScreen);
+    }
     @Override
     public void resize(int width, int height) {
     }

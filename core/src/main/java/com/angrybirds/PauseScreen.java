@@ -13,11 +13,17 @@ public class PauseScreen implements Screen {
     private Rectangle resumebuttonbounds;
     private Rectangle homebuttonbounds;
 
-    public PauseScreen(final AngryBirdsGame game) {
+    private final int currentLevel;
+
+
+    public PauseScreen(final AngryBirdsGame game, int currentLevel) {
         this.game = game;
+        this.currentLevel = currentLevel;
 
         resumebuttonbounds = new Rectangle(500, 100, 120,130);
         homebuttonbounds=new Rectangle(680, 100, 120,130);
+       AngryBirdsGame.music.play();
+
 
     }
 
@@ -26,6 +32,7 @@ public class PauseScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         Gdx.gl.glClearColor(0, 0.5f, 0.7f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -33,13 +40,19 @@ public class PauseScreen implements Screen {
         if (Gdx.input.isTouched()) {
             Vector2 touchPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
-
+            String load="LOAD";
             if (resumebuttonbounds.contains(touchPos.x, Gdx.graphics.getHeight() - touchPos.y)) {
-                game.setScreen(new GameScreen1(game));
+                Screen loadedScreen = GameStateManager.getInstance().loadGameState(game, currentLevel);
+                AngryBirdsGame.music.pause();;
+
+                game.setScreen(loadedScreen);
+//                game.setScreen(new GameScreen1(game,load));
             }
 
 
             if (homebuttonbounds.contains(touchPos.x, Gdx.graphics.getHeight() - touchPos.y)) {
+                AngryBirdsGame.music.pause();;
+
                 game.setScreen(new SaveScreen(game));
             }
         }

@@ -1,11 +1,15 @@
 package com.angrybirds;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AngryBirdsGame extends Game {
+
+
     public SpriteBatch batch;
     public Texture startScreenTexture;
     public Texture homeScreenTexture;
@@ -21,6 +25,18 @@ public class AngryBirdsGame extends Game {
     public Texture winscreenTexture;
     public Texture losescreenTexture;
     public Texture loadinggameTexture;
+    public Texture dragtextture;
+    public Texture woodvertexture;
+    public Texture glasstexture;
+    public Texture glassvertexture;
+    public Texture stonetexture;
+    public Texture stonevertexture;
+   public static Music music;
+    public static Music blockdam ;
+    public static Music pigdam;
+    public static  Music win;
+    public static  Music lose;
+
 
     @Override
     public void create() {
@@ -39,7 +55,23 @@ public class AngryBirdsGame extends Game {
         winscreenTexture =new Texture("win.jpeg");
         losescreenTexture=new Texture("lose.jpg");
         loadinggameTexture=new Texture("loadinggame.jpeg");
+        dragtextture=new Texture("drag.png");
+        woodvertexture=new Texture("woodvertical.png");
+        glasstexture=new Texture("glass.jpg");
+        glassvertexture=new Texture("glassver.jpg");
+        stonetexture=new Texture("steel.jpeg");
+        stonevertexture=new Texture("steelver.jpeg");
+
         this.setScreen(new StartScreen(this));
+
+        music= Gdx.audio.newMusic(Gdx.files.internal("angrybird.ogg"));
+
+        music.setLooping(true);
+        blockdam=Gdx.audio.newMusic(Gdx.files.internal("blockdam.mp3"));
+            pigdam= Gdx.audio.newMusic(Gdx.files.internal("dam.mp3"));
+            win=Gdx.audio.newMusic(Gdx.files.internal("win.mp3"));
+            lose=Gdx.audio.newMusic(Gdx.files.internal("lose.mp3"));
+
     }
 
     @Override
@@ -63,7 +95,10 @@ public class AngryBirdsGame extends Game {
         winscreenTexture.dispose();
         losescreenTexture.dispose();
         loadinggameTexture.dispose();
+        dragtextture.dispose();
+        woodvertexture.dispose();
     }
+
 
 }
 

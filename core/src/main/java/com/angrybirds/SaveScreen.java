@@ -10,6 +10,7 @@ public class SaveScreen implements Screen {
 
     public SaveScreen(final AngryBirdsGame game) {
         this.game = game;
+        AngryBirdsGame.music.play();
     }
 
     @Override
@@ -28,6 +29,8 @@ public class SaveScreen implements Screen {
 
         t =t+ del;
         if (t > 2) {
+            AngryBirdsGame.music.pause();
+
             game.setScreen(new HomeScreen(game));
         }
     }
