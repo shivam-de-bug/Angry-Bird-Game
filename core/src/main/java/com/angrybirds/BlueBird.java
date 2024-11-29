@@ -3,7 +3,6 @@ package com.angrybirds;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-
 public class BlueBird extends Bird {
     private boolean split = false;
     private Array<BlueBird> copies;
