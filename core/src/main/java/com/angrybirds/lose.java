@@ -2,7 +2,6 @@ package com.angrybirds;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-
 public class lose implements Screen {
 
     private final AngryBirdsGame game;
