@@ -1,5 +1,4 @@
 package com.angrybirds;
-
 import com.badlogic.gdx.graphics.Texture;
 
 public class YellowBird extends Bird {
