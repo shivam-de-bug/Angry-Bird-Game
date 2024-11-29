@@ -1,5 +1,4 @@
 package com.angrybirds;
-
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Array;
 
