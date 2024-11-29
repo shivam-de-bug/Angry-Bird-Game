@@ -1,5 +1,4 @@
 package com.angrybirds;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -10,4 +9,3 @@ public class WoodBlock extends BuildingBlock {
     }
 
 }
-
