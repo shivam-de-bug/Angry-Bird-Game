@@ -1,7 +1,5 @@
 
 
-Team RCB
-Group Members:Shivam (2023504) and Gaurav Chauhan(2023218)
 
 This is our Github Repo. link: https://github.com/shivam-de-bug/Angry-Bird-Game
 
