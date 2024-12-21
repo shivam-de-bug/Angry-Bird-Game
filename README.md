@@ -1,110 +1,112 @@
+# Angry Birds Game Development using Advanced Programming
+
+## Project Overview
+This project is a Java-based implementation of the popular Angry Birds game using the libGDX framework. It focuses on applying advanced programming concepts such as object-oriented principles (OOP), design patterns, and serialization to deliver a robust, modular, and feature-rich game.
+
+---
+
+## Features
+
+### Gameplay Features
+1. **Level Progression:**
+   - Play multiple levels with unique structures, pigs, and birds.
+   - Restart levels upon win or loss.
+
+2. **Game State Management:**
+   - Pause and resume the game while maintaining progress.
+   - Save and load game states automatically during transitions.
+   - Return to the Home screen while saving the current game state.
+
+3. **Bird and Block Variants:**
+   - Three types of birds:
+     - **Red Bird:** Standard bird.
+     - **Yellow Bird:** Accelerates mid-flight upon player input.
+     - **Blue Bird:** Splits into smaller birds during flight.
+   - Blocks of varying durability:
+     - **Wood**, **Glass**, and **Steel**.
+   - Pigs with varying hit requirements based on size.
+
+4. **Debug Information:**
+   - Displays game state, score, remaining pigs, and birds in the terminal during key actions in console.
+
+### Serialization and Game Saves
+- Save the game state, including:
+  - Collapsed structures.
+  - Hits dealt to pigs.
+  - Remaining birds and progress within the current level.
+- Restore game progress from saved states using a dedicated menu.
 
 
 
-This is our Github Repo. link: https://github.com/shivam-de-bug/Angry-Bird-Game
+## Concepts Used
+1. **Polymorphism:**
+   - All screen classes (e.g., `GameScreen1`, `HomeScreen`, `LevelScreen`) implement the `Screen` interface provided by libGDX, overriding methods like `render()` for specific behavior.
+   - Bird and Pig subclasses extend generic parent classes to minimize code redundancy.
 
-We have implemented Angry Birds game using libGDX library.
+2. **Inheritance:**
+   - Classes like `SmallPig`, `MediumPig`, and `LargePig` inherit from a base `Pig` class.
+   - Bird subclasses (e.g., `RedBird`, `BlueBird`, `YellowBird`) inherit from a base `Bird` class.
+   - `AngryBirdsGame` extends libGDX's `Game` class for core game management.
 
-## Game Functionality
+3. **Encapsulation:**
+   - Game properties (e.g., textures, scores) are encapsulated within classes, exposing only necessary methods.
 
-### Level Progression
-- When the game starts, you can play any level.
-- If you *win* or *lose*, the level can be restarted to play again.
+4. **Abstraction:**
+   - High-level abstraction for screen management, enabling smooth transitions between game states without exposing implementation details.
 
-### Game State Management
-- *Pause and Back*:
-    - If you pause the game and click the *Back* button, the game saves automatically.
-- *Pause and Resume*:
-    - If you pause the game and then *resume*, the game automatically loads from where you left off.
-- *Pause and Home*:
-    - If you pause the game and return to the *Home* screen, the game saves the current state.
-    - When you return to the level, it will *only restart/reset* if you explicitly click the *Reset* button on the level screen.
+5. **Design Patterns:**
+   - Utilized at least two design patterns to ensure modularity and extensibility.
 
-### Birds and Blocks
-- Three different blocks are available: **wood**, **glass**, and **steel**, each with different durability.
-- Three types of birds are included:
-    - **Red bird**: Standard bird.
-    - **Yellow bird**: Has a special ability to go faster when you click on the screen while it is flying.
-    - **Blue bird**: Splits into smaller birds when you click on the screen during its flight.
+---
 
-### Debug Information
-- The following information is printed in the terminal:
-    - Current *game state*
-    - Current *score*
-    - Number of *pigs* remaining
-    - Number of *birds* remaining
-- This information is displayed when you:
-    - *Resume* the game.
-    - *Enter a level* where you left off.
+## Installation and Setup
 
+### Prerequisites
+- **JDK**: Version 11 or higher.
+- **Gradle**: Build tool for managing dependencies and automation.
+- **libGDX**: Java game development framework.
 
-Concepts used here
-Polymorphism : All the different screen classes such as GameSreen1,HomeScreen,LevelScreen,etc, implements screen interface which is offered by libGDX and employ their own particular display logic by over-riding the render method of screen class. Code reuse is promoted by using common characteristics of classes under the concept of polymorphism. In this case, screen classes utilize general Screen behaviors whereas bird classes use general Bird traits in order to minimize redundancy.
-Inheritance: Inheritance is used because we have created classes like SmallPig,MediumPig,LargePig which are inheriting the parent class Pig similarly blueBird,redBird and yellowBird classes are inheriting Bird class. The AngryBirdsGame class inherits from the Game superclass. This relationship allows AngryBirdsGame to use core Game methods, allowing features such as game state management without having to rewrite the underlying logic.
-Classes:We have defined classes for the different parts of the game like for HomeScreen,StartScreen,lose,win,SaveScreen,Loadinggame,level,GameScreen1,etc all which have single responsibility jobs and leads to loosely coupled classes.
-Abstraction:Screen classes offer higher abstraction for game states and thereby the AngryBirdsGame class deals with the state transitions without dealing directly with the screen details.
-Encapsulation:All the pieces of the game are enclosed within a class.All properties, for instance, redbirdTexture or woodblockTexture, can be accessed only within the AngryBirdsGame class or any classes of its own. That ensures each object has protected state and exposes only needed behavior through public methods.
-The classes and components are modularly designed so they become open to extension but closed to modification of code.
-Class boundaries and the responsibility of code have defined clear, organized responsibilities, thereby enhancing readability and maintainability of the code. It can be separated into clearly differentiated classes-gamescreens-textures so that a part may be modified or expanded with much less risk of creating side effects elsewhere.
+### Steps to Set Up
+1. **Download JDK:**
+   ```bash
+   sdk install java 11.0.11-open
+   ```
 
+2. **Download Gradle:**
+   - Comes bundled with the libGDX setup tool.
 
+3. **Set Up LibGDX Project:**
+   - Download `gdx-setup.jar` from the [official LibGDX site](https://libgdx.com/).
+   - Run the setup tool:
+     ```bash
+     java -jar gdx-setup.jar
+     ```
+   - Configure the project with appropriate settings (e.g., package name, extensions, platforms).
 
+4. **Import Project into IDE:**
+   - Open the `build.gradle` file in your IDE (e.g., IntelliJ IDEA).
+   - Allow Gradle to sync dependencies.
 
+5. **Run the Game:**
+   - Locate `DesktopLauncher.java` and run it:
+     ```bash
+     ./gradlew desktop:run
+     ```
 
+---
 
-We used game screen image from internet and we have used canva for some images we have used.
-We read wiki documentation on libGDX website. We used setup documentation on libGDX website for reference for setup.
+## Acknowledgments
+- **Images:** Some images are sourced from the internet; others were created using Canva.
+- **References:**
+  - libGDX official documentation and wiki.
+  - Setup guides from the libGDX website.
 
-These are the steps to setup libGDX in your system:
-Step 1: Download JDK
-LibGDX supports JDK 11 and higher.
-download JDK from the Oracle site or Open JDK via SDKMAN:
+---
 
-sdk install java 11.0.11-open
-End
+## Repository Link
+[Angry Birds Game Repository](https://github.com/shivam-de-bug/Angry-Bird-Game)
 
-Step 2: Download Build Tool - Gradle
-LibGDX relies on Gradle to manage its artifacts and automate much of the build process. The Gradle wrapper comes bundled with the LibGDX setup.
-Step 3: Download Setup Tool LibGDX
-Go to the official LibGDX Setup App page.
-Download LibGDX Project Setup Jar (for example, gdx-setup.jar).
-Step 4: Run the Setup Tool
-Use LibGDX Project Setup to create a new project
-
-Open a terminal or command prompt and change into the folder in which you downloaded gdx-setup.jar
-Running the following command
-java -jar gdx-setup.jar
-Step 5: Configure the Project Setup
-Once the setup UI opens, you should be prompted to configure your project:
-End.
-Package: Your package namespace (for example, com.mygame.app).
-Game Class: The class name. By default it is Main.
-Destination: The folder where you want the project to be generated.
-Sub Projects: Select target platforms. Here, you can select more than one, Desktop, Android, iOS, HTML etc
-Extensions: Choose any LibGDX extension that you need, e.g. Box2D, controllers, etc
-Clicking on Generate will create a project with Gradle support in the chosen directory.
-
-Step 6: Import the Project into an IDE
-a) Using IntelliJ IDEA:
-
-Open IntelliJ IDEA.
-
-From the welcome screen select Open and in the opened window choose the directory where the LibGDX project was generated.
-
-Select the root directory which contains build.gradle file.
-
-IntelliJ will automatically import the Gradle project and download the necessary dependencies.
-
-a) Using IntelliJ IDEA:
-Open the desktop/src/./DesktopLauncher.java
-
-Right-click somewhere inside the file, then select Run 'DesktopLauncher.main()'.
-
-Step 8: Gradle Commands
-You can also build or run the project from the terminal with Gradle. Navigate to the project directory, and run this:
-
-./gradlew desktop:runi
+---
 
 
-Now you are ready to run!
 
