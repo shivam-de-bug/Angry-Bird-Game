@@ -1,4 +1,4 @@
-# Angry Birds Game Development using Advanced Programming
+# Angry Birds Game Development
 
 ## Project Overview
 This project is a Java-based implementation of the popular Angry Birds game using the libGDX framework. It focuses on applying advanced programming concepts such as object-oriented principles (OOP), design patterns, and serialization to deliver a robust, modular, and feature-rich game.
